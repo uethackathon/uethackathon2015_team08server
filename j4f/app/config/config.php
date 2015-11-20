@@ -7,8 +7,8 @@ return new \Phalcon\Config(array(
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'test',
+        'password'    => '(*8sdsDD*&kj)',
+        'dbname'      => 'soa_assignment_1',
         'charset'     => 'utf8',
     ),
     'application' => array(
@@ -19,6 +19,6 @@ return new \Phalcon\Config(array(
         'pluginsDir'     => APP_PATH . '/app/plugins/',
         'libraryDir'     => APP_PATH . '/app/library/',
         'cacheDir'       => APP_PATH . '/app/cache/',
-        'baseUri'        => '/dm/',
+        'baseUri'        => '/soa/assignment_1/',
     )
 ));
