@@ -18,13 +18,19 @@ class Questions extends \Phalcon\Mvc\Model {
 	 *
 	 * @var string
 	 */
+	public $title;
+
+	/**
+	 *
+	 * @var string
+	 */
 	public $content;
 
 	/**
 	 *
 	 * @var string
 	 */
-	public $image;
+	public $photo;
 
 	/**
 	 *

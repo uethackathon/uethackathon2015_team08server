@@ -13,6 +13,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			$question           = new Questions();
 			$question->id       = uniqid();
 			$question->tags     = $this->request->getPost( 'tags' );
+			$question->title    = $this->request->getPost( 'title' );
 			$question->content  = $this->request->getPost( 'content' );
 			$question->users_id = $this->request->getPost( 'users_id' );
 
@@ -35,7 +36,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 						} else {
 							//Move the file into the application
 							$file->moveTo( $location );
-							$question->image = $photos->public_link;
+							$question->photo = $photos->public_link;
 						}
 					} catch ( PDOException $e ) {
 						$response->setResponseError( $e->getMessage() );

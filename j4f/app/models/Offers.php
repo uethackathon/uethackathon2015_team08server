@@ -30,7 +30,7 @@ class Offers extends \Phalcon\Mvc\Model {
 	 *
 	 * @var string
 	 */
-	public $photo;
+	public $title;
 
 	/**
 	 *
