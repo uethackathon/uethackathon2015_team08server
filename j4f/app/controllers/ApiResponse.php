@@ -23,6 +23,15 @@ class ApiResponse extends Response {
 		) );
 	}
 
+	public function setResponseMessage( $data ) {
+		$this->setStatusCode( 200, 'OK' );
+
+		$this->setJsonContent( array(
+			'status' => 'ok',
+			'data'   => $data
+		) );
+	}
+
 	public function setResponseError( $message ) {
 		$this->setStatusCode( 200, 'OK' );
 

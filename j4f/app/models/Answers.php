@@ -4,7 +4,7 @@ class Answers extends \Phalcon\Mvc\Model {
 
 	/**
 	 *
-	 * @var integer
+	 * @var string
 	 */
 	public $id;
 
@@ -19,18 +19,6 @@ class Answers extends \Phalcon\Mvc\Model {
 	 * @var string
 	 */
 	public $photo;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $created_at;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $modified_in;
 
 	/**
 	 *

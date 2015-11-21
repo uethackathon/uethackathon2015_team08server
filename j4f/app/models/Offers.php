@@ -4,7 +4,7 @@ class Offers extends \Phalcon\Mvc\Model {
 
 	/**
 	 *
-	 * @var integer
+	 * @var string
 	 */
 	public $id;
 

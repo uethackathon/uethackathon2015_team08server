@@ -63,13 +63,7 @@ class Users extends \Phalcon\Mvc\Model {
 	 *
 	 * @var string
 	 */
-	public $created_at;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $modified_in;
+	public $avatar;
 
 	/**
 	 * Validations and business logic

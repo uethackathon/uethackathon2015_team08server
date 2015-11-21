@@ -33,7 +33,7 @@ class UserController extends \Phalcon\Mvc\Controller {
 				if ( $user->save() == false ) {
 					$response->setResponseError( implode( ', ', $user->getMessages() ) );
 				} else {
-					$response->setResponse( $user->id, 1 );
+					$response->setResponseMessage( 'Register successfully!' );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
@@ -67,10 +67,46 @@ class UserController extends \Phalcon\Mvc\Controller {
 				return $response;
 			}
 
-			$response->setResponse( array(
-				'username' => $user->username,
-				'email'    => $user->email
-			), 1 );
+			$response->setResponseMessage( 'Login successfully!' );
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+		return $response;
+	}
+
+	public function loginFbAction() {
+		$response = new ApiResponse();
+
+		if ( $this->request->isPost() ) {
+			$fbId     = $this->request->getPost( 'fbId' );
+			$username = $this->request->getPost( 'username' );
+			$email    = $this->request->getPost( 'email' );
+			$avatar   = $this->request->getPost( 'avatar' );
+
+			$user = Users::findFirstByFbId( $fbId );
+
+			if ( $user == true ) {
+				$response->setResponseMessage( 'Login successfully!' );
+
+				return $response;
+			} else {
+				$user           = new Users();
+				$user->id       = uniqid();
+				$user->fbId     = $fbId;
+				$user->avatar   = $avatar;
+				$user->username = $username;
+				$user->email    = $email;
+				try {
+					if ( $user->save() == false ) {
+						$response->setResponseError( implode( ', ', $user->getMessages() ) );
+					} else {
+						$response->setResponseMessage( 'Register successfully!' );
+					}
+				} catch ( PDOException $e ) {
+					$response->setResponseError( $e->getMessage() );
+				}
+			}
 		} else {
 			$response->setResponseError( 'Wrong HTTP Method' );
 		}
