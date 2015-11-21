@@ -28,13 +28,19 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			foreach ( $page->items as $item ) {
 				$user = Users::findFirstById( $item->id );
 
-				$item->user = array(
-					'id'     => $item->users_id,
-					'name'   => $user->username,
-					'avatar' => $user->avatar
+				$res[] = array(
+					'id'         => $item->id,
+					'tags'       => $item->tags,
+					'title'      => $item->title,
+					'content'    => $item->content,
+					'photo'      => $item->photo,
+					'upvotes'    => $item->upvotes,
+					'downvotes'  => $item->downvotes,
+					'users_id'   => $item->users_id,
+					'name'       => $user->username,
+					'avatar'     => $user->avatar,
+					'created_at' => $item->created_at
 				);
-
-				$res[] = $item;
 			}
 
 			$response->setResponse( $res, count( $questions ) );
