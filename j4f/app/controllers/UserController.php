@@ -10,9 +10,9 @@ class UserController extends \Phalcon\Mvc\Controller {
 		$response = new ApiResponse();
 
 		if ( $this->request->isPost() ) {
-			$account = new Users();
+			$user = new Users();
 
-			$username     = $this->request->getPost( 'username' );
+			$username = $this->request->getPost( 'username' );
 			$email    = $this->request->getPost( 'email' );
 			$password = $this->request->getPost( 'password' );
 
@@ -22,22 +22,55 @@ class UserController extends \Phalcon\Mvc\Controller {
 				return $response;
 			}
 
-			$account->id       = uniqid();
-			$account->username = $username;
-			$account->email    = $email;
-			$account->password = $password;
+			$user->id       = uniqid();
+			$user->username = $username;
+			$user->email    = $email;
+			$user->password = $password;
 
 			// Store the password hashed
-			$account->password = $this->security->hash( $password );
+			$user->password = $this->security->hash( $password );
 			try {
-				if ( $account->save() == false ) {
-					$response->setResponseError( implode( ', ', $account->getMessages() ) );
+				if ( $user->save() == false ) {
+					$response->setResponseError( implode( ', ', $user->getMessages() ) );
 				} else {
-					$response->setResponse( $account->id );
+					$response->setResponse( $user->id, 1 );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
 			}
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+		return $response;
+	}
+
+	public function loginAction() {
+		$response = new ApiResponse();
+
+		if ( $this->request->isPost() ) {
+			$email    = $this->request->getPost( 'email' );
+			$password = $this->request->getPost( 'password' );
+
+			// Check if the user exist
+			$user = Users::findFirstByEmail( $email );
+			if ( $user == false ) {
+				$response->setResponseError( 'Wrong email/password combination 1' );
+
+				return $response;
+			}
+
+			// Check the password
+			if ( ! $this->security->checkHash( $password, $user->password ) ) {
+				$response->setResponseError( 'Wrong email/password combination' );
+
+				return $response;
+			}
+
+			$response->setResponse( array(
+				'username' => $user->username,
+				'email'    => $user->email
+			), 1 );
 		} else {
 			$response->setResponseError( 'Wrong HTTP Method' );
 		}
