@@ -1,9 +1,37 @@
 <?php
 
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
+
 class AnswerController extends \Phalcon\Mvc\Controller {
 
 	public function indexAction() {
+		$response = new ApiResponse();
 
+		if ( $this->request->isGet() ) {
+			$limit        = $this->request->get( 'limit' );
+			$page         = $this->request->get( 'page' );
+			$questions_id = $this->request->get( 'questions_id' );
+
+			$answers = Answers::find( "questions_id = '$questions_id'" );
+
+			$paginator = new PaginatorModel(
+				array(
+					"data"  => $answers,
+					"limit" => $limit,
+					"page"  => $page
+				)
+			);
+
+			$page = $paginator->getPaginate();
+			$response->setResponse( $page->items, count( $answers ) );
+
+			return $response;
+
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+		return $response;
 	}
 
 	public function newAction() {
