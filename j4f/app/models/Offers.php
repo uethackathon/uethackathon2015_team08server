@@ -34,6 +34,12 @@ class Offers extends \Phalcon\Mvc\Model {
 
 	/**
 	 *
+	 * @var string
+	 */
+	public $phone;
+
+	/**
+	 *
 	 * @var integer
 	 */
 	public $status;

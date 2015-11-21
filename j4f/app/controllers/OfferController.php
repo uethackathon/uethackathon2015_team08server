@@ -49,6 +49,7 @@ class OfferController extends \Phalcon\Mvc\Controller {
 			$offer->tags     = $this->request->getPost( 'tags' );
 			$offer->content  = $this->request->getPost( 'content' );
 			$offer->time     = $this->request->getPost( 'time' );
+			$offer->phone    = $this->request->getPost( 'phone' );
 			$offer->users_id = $this->request->getPost( 'users_id' );
 			$offer->status   = 0;
 
