@@ -54,41 +54,33 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			$question->content  = $this->request->getPost( 'content' );
 			$question->users_id = $this->request->getPost( 'users_id' );
 
-//			if ( $this->request->hasFiles() == true ) {
-			$baseLocation = 'files/';
-//				foreach ( $this->request->getUploadedFiles() as $file ) {
-			$file = 'data:image/png;base64,AAAFBfj42Pj4';
+			if ( $this->request->hasFiles() == true ) {
+				$baseLocation = 'files/';
+				foreach ( $this->request->getUploadedFiles() as $file ) {
 
-			list( $type, $file ) = explode( ';', $file );
-			list( , $file ) = explode( ',', $file );
-			$file = base64_decode( $file );
+					$photos          = new Photos();
+					$unique_filename = $question->id;
 
-			$photos          = new Photos();
-			$unique_filename = $question->id;
+					$photos->size          = $file->getSize();
+					$photos->original_name = $file->getName();
+					$photos->file_name     = $unique_filename;
+					$photos->extension     = $file->getExtension();
+					$location              = $baseLocation . $unique_filename . "." . $file->getExtension();
+					$photos->public_link   = $location;
 
-//			$photos->size          = $file->getSize();
-//			$photos->original_name = $file->getName();
-//			$photos->file_name     = $unique_filename;
-//			$photos->extension     = $file->getExtension();
-//			$location              = $baseLocation . $unique_filename . "." . $file->getExtension();
-//			$photos->public_link   = $location;
-
-			$location = $baseLocation . $unique_filename . ".jpg";
-			file_put_contents( $location, $file );
-
-//			try {
-//				if ( ! $photos->save() ) {
-//					$response->setResponseError( $photos->getMessages() );
-//				} else {
-//					//Move the file into the application
-//					$file->moveTo( $location );
-//					$question->photo = $photos->public_link;
-//				}
-//			} catch ( PDOException $e ) {
-//				$response->setResponseError( $e->getMessage() );
-//			}
-//				}
-//			}
+					try {
+						if ( ! $photos->save() ) {
+							$response->setResponseError( $photos->getMessages() );
+						} else {
+							//Move the file into the application
+							$file->moveTo( $location );
+							$question->photo = $photos->public_link;
+						}
+					} catch ( PDOException $e ) {
+						$response->setResponseError( $e->getMessage() );
+					}
+				}
+			}
 
 			try {
 				if ( $question->save() == false ) {
