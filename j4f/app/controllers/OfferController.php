@@ -1,9 +1,37 @@
 <?php
 
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
+
 class OfferController extends \Phalcon\Mvc\Controller {
 
 	public function indexAction() {
+		$response = new ApiResponse();
 
+		if ( $this->request->isGet() ) {
+			$limit    = $this->request->get( 'limit' );
+			$page     = $this->request->get( 'page' );
+			$users_id = $this->request->get( 'users_id' );
+
+			$offers = Offers::find( "users_id = '$users_id'" );
+
+			$paginator = new PaginatorModel(
+				array(
+					"data"  => $offers,
+					"limit" => $limit,
+					"page"  => $page
+				)
+			);
+
+			$page = $paginator->getPaginate();
+			$response->setResponse( $page->items, count( $offers ) );
+
+			return $response;
+
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+		return $response;
 	}
 
 	public function newAction() {
