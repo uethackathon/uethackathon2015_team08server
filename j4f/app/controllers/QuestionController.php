@@ -86,6 +86,5 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 
 		return $response;
 	}
-
 }
 
