@@ -33,7 +33,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 						if ( ! $photos->save() ) {
 							$response->setResponseError( $photos->getMessages() );
 						} else {
-							//Move the file into the application folder
+							//Move the file into the application
 							$file->moveTo( $location );
 							$question->image = $photos->public_link;
 						}
