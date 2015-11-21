@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
+use Phalcon\Mvc\Model\Validator\Uniqueness;
 
 class Users extends \Phalcon\Mvc\Model {
 
@@ -81,6 +82,13 @@ class Users extends \Phalcon\Mvc\Model {
 				array(
 					'field'    => 'email',
 					'required' => true,
+				)
+			)
+		);
+
+		$this->validate( new Uniqueness( array(
+					"field"   => "email",
+					"message" => "Value of field 'email' is already present in another record"
 				)
 			)
 		);
