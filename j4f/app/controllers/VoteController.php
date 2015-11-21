@@ -146,7 +146,7 @@ class VoteController extends \Phalcon\Mvc\Controller {
 					if ( $answer->users_id != $users_id
 					     && ! Votes::checkIfVotedAnswer( $users_id, $answers_id )
 					) {
-						var_dump(Votes::checkIfVotedAnswer( $users_id, $answers_id ));
+						var_dump( Votes::checkIfVotedAnswer( $users_id, $answers_id ) );
 						$answer->downvotes += 1;
 						if ( $answer->save() == false ) {
 							$response->setResponseError( $answer->getMessages() );

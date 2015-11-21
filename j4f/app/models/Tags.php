@@ -1,6 +1,6 @@
 <?php
 
-class Photos extends \Phalcon\Mvc\Model {
+class Tags extends \Phalcon\Mvc\Model {
 
 	/**
 	 *
@@ -10,33 +10,15 @@ class Photos extends \Phalcon\Mvc\Model {
 
 	/**
 	 *
-	 * @var integer
+	 * @var string
 	 */
-	public $size;
+	public $name;
 
 	/**
 	 *
 	 * @var string
 	 */
-	public $original_name;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $file_name;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $extension;
-
-	/**
-	 *
-	 * @var string
-	 */
-	public $public_link;
+	public $icon;
 
 	/**
 	 * Returns table name mapped in the model.
@@ -44,7 +26,7 @@ class Photos extends \Phalcon\Mvc\Model {
 	 * @return string
 	 */
 	public function getSource() {
-		return 'photos';
+		return 'tags';
 	}
 
 	/**
@@ -52,7 +34,7 @@ class Photos extends \Phalcon\Mvc\Model {
 	 *
 	 * @param mixed $parameters
 	 *
-	 * @return Photos[]
+	 * @return Tags[]
 	 */
 	public static function find( $parameters = null ) {
 		return parent::find( $parameters );
@@ -63,7 +45,7 @@ class Photos extends \Phalcon\Mvc\Model {
 	 *
 	 * @param mixed $parameters
 	 *
-	 * @return Photos
+	 * @return Tags
 	 */
 	public static function findFirst( $parameters = null ) {
 		return parent::findFirst( $parameters );
