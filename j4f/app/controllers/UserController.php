@@ -33,7 +33,7 @@ class UserController extends \Phalcon\Mvc\Controller {
 				if ( $user->save() == false ) {
 					$response->setResponseError( implode( ', ', $user->getMessages() ) );
 				} else {
-					$response->setResponseMessage( 'Register successfully!' );
+					$response->setResponseMessage( $user->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
