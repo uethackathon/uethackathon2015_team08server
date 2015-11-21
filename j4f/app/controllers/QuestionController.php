@@ -27,7 +27,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 					$photos->file_name     = $unique_filename;
 					$photos->extension     = $file->getExtension();
 					$location              = $baseLocation . $unique_filename . "." . $file->getExtension();
-					$photos->public_link   = 'http://' . $_SERVER['HTTP_HOST'] . $this->getDI()->get( 'url' )->getBaseUri() . $location;
+					$photos->public_link   = $location;
 
 					try {
 						if ( ! $photos->save() ) {
