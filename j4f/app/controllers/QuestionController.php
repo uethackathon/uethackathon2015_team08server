@@ -22,7 +22,17 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			);
 
 			$page = $paginator->getPaginate();
-			$response->setResponse( $page->items, count( $questions ) );
+
+			$res = [ ];
+			foreach ( $page->items as $item ) {
+				$user = Users::findFirstById( $item->users_id );
+
+				$item->user_name   = $user->username;
+				$item->user_avatar = $user->avatar;
+				$res[]             = $item;
+			}
+
+			$response->setResponse( $res, count( $questions ) );
 
 			return $response;
 

@@ -51,6 +51,18 @@ class Questions extends \Phalcon\Mvc\Model {
 	public $users_id;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $user_name;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	public $user_avatar;
+
+	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {

@@ -8,8 +8,8 @@ class TagController extends \Phalcon\Mvc\Controller {
 		$response = new ApiResponse();
 
 		if ( $this->request->isGet() ) {
-			$limit = $this->request->get( 'limit' );
-			$page  = $this->request->get( 'page' );
+			$limit = (int) $this->request->get( 'limit' );
+			$page  = (int) $this->request->get( 'page' );
 
 			$questions = Tags::find();
 
