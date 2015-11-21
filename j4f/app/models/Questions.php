@@ -44,7 +44,6 @@ class Questions extends \Phalcon\Mvc\Model {
 	 */
 	public $downvotes;
 
-
 	/**
 	 *
 	 * @var integer
