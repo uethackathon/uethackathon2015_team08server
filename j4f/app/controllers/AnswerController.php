@@ -12,7 +12,7 @@ class AnswerController extends \Phalcon\Mvc\Controller {
 			$page         = $this->request->get( 'page' );
 			$questions_id = $this->request->get( 'questions_id' );
 
-			$answers = Answers::find( "questions_id = '$questions_id'" );
+			$answers = Answers::find( array( "questions_id = '$questions_id'", "order" => "created_at DESC" ) );
 
 			$paginator = new PaginatorModel(
 				array(

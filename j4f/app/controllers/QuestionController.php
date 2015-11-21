@@ -11,7 +11,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			$limit = $this->request->get( 'limit' );
 			$page  = $this->request->get( 'page' );
 
-			$questions = Questions::find();
+			$questions = Questions::find(array("order" => "created_at DESC" ));
 
 			$paginator = new PaginatorModel(
 				array(

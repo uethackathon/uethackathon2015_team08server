@@ -11,7 +11,7 @@ class OfferController extends \Phalcon\Mvc\Controller {
 			$limit = $this->request->get( 'limit' );
 			$page  = $this->request->get( 'page' );
 
-			$offers = Offers::find();
+			$offers = Offers::find( array( "order" => "created_at DESC" ));
 
 			$paginator = new PaginatorModel(
 				array(
