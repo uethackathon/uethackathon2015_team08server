@@ -33,6 +33,18 @@ class Answers extends \Phalcon\Mvc\Model {
 	public $users_id;
 
 	/**
+	 *
+	 * @var integer
+	 */
+	public $upvotes;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	public $downvotes;
+
+	/**
 	 * Initialize method for model.
 	 */
 	public function initialize() {
