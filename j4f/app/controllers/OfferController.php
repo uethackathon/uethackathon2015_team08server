@@ -8,6 +8,36 @@ class OfferController extends \Phalcon\Mvc\Controller {
 		$response = new ApiResponse();
 
 		if ( $this->request->isGet() ) {
+			$limit = $this->request->get( 'limit' );
+			$page  = $this->request->get( 'page' );
+
+			$offers = Offers::find();
+
+			$paginator = new PaginatorModel(
+				array(
+					"data"  => $offers,
+					"limit" => $limit,
+					"page"  => $page
+				)
+			);
+
+			$page = $paginator->getPaginate();
+			$response->setResponse( $page->items, count( $offers ) );
+
+			return $response;
+
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+
+		return $response;
+	}
+
+	public function userlistAction() {
+		$response = new ApiResponse();
+
+		if ( $this->request->isGet() ) {
 			$limit    = $this->request->get( 'limit' );
 			$page     = $this->request->get( 'page' );
 			$users_id = $this->request->get( 'users_id' );
