@@ -1,6 +1,6 @@
 <?php
 
-class QuestionController extends \Phalcon\Mvc\Controller {
+class AnswerController extends \Phalcon\Mvc\Controller {
 
 	public function indexAction() {
 
@@ -10,18 +10,17 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 		$response = new ApiResponse();
 
 		if ( $this->request->isPost() ) {
-			$question           = new Questions();
-			$question->id       = uniqid();
-			$question->tags     = $this->request->getPost( 'tags' );
-			$question->title    = $this->request->getPost( 'title' );
-			$question->content  = $this->request->getPost( 'content' );
-			$question->users_id = $this->request->getPost( 'users_id' );
+			$answer               = new Answers();
+			$answer->id           = uniqid();
+			$answer->content      = $this->request->getPost( 'content' );
+			$answer->users_id     = $this->request->getPost( 'users_id' );
+			$answer->questions_id = $this->request->getPost( 'questions_id' );
 
 			if ( $this->request->hasFiles() == true ) {
 				$baseLocation = 'files/';
 				foreach ( $this->request->getUploadedFiles() as $file ) {
 					$photos          = new Photos();
-					$unique_filename = $question->id;
+					$unique_filename = $answer->id;
 
 					$photos->size          = $file->getSize();
 					$photos->original_name = $file->getName();
@@ -36,7 +35,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 						} else {
 							//Move the file into the application
 							$file->moveTo( $location );
-							$question->photo = $photos->public_link;
+							$answer->photo = $photos->public_link;
 						}
 					} catch ( PDOException $e ) {
 						$response->setResponseError( $e->getMessage() );
@@ -45,10 +44,10 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 			}
 
 			try {
-				if ( $question->save() == false ) {
-					$response->setResponseError( $question->getMessages() );
+				if ( $answer->save() == false ) {
+					$response->setResponseError( $answer->getMessages() );
 				} else {
-					$response->setResponseMessage( "Create question $question->id successfully!" );
+					$response->setResponseMessage( "Create answer $answer->id successfully!" );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
@@ -59,5 +58,6 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 
 		return $response;
 	}
+
 }
 
