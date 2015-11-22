@@ -27,7 +27,7 @@ class AnswerController extends \Phalcon\Mvc\Controller {
 
 			$res = [ ];
 			foreach ( $page->items as $item ) {
-				$user = Users::findFirst( $item->users_id );
+				$user = Users::findFirstById( $item->users_id );
 
 				$res[] = array(
 					'id'           => $item->id,
