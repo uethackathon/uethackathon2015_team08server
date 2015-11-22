@@ -205,5 +205,27 @@ class OfferController extends \Phalcon\Mvc\Controller {
 		return $response;
 	}
 
+	public function detailtAction() {
+		$response = new ApiResponse();
+
+		if ( $this->request->isGet() ) {
+			$offers_id = $this->request->get( 'offers_id' );
+			$offer      = Offers::findFirstById( $offers_id );
+
+			if ( $offer == false ) {
+				$response->setResponseError( 'No offer found!' );
+
+				return $response;
+			} else {
+				$response->setResponse( $offer, 1 );
+
+				return $response;
+			}
+		} else {
+			$response->setResponseError( 'Wrong HTTP Method' );
+		}
+
+		return $response;
+	}
 }
 
