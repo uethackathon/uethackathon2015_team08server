@@ -86,7 +86,7 @@ class QuestionController extends \Phalcon\Mvc\Controller {
 				if ( $question->save() == false ) {
 					$response->setResponseError( $question->getMessages() );
 				} else {
-					$response->setResponseMessage( "Create question $question->id successfully!" );
+					$response->setResponseMessage( $question->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );

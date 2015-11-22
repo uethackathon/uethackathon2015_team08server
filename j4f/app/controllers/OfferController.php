@@ -87,7 +87,7 @@ class OfferController extends \Phalcon\Mvc\Controller {
 				if ( $offer->save() == false ) {
 					$response->setResponseError( $offer->getMessages() );
 				} else {
-					$response->setResponseMessage( "Create offer $offer->id successfully!" );
+					$response->setResponseMessage( $offer->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );

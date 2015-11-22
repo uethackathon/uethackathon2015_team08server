@@ -76,7 +76,7 @@ class VoteController extends \Phalcon\Mvc\Controller {
 
 							return $response;
 						} else {
-							$response->setResponseMessage( "Create vote up $vote->id for answer $answers_id successfully!" );
+							$response->setResponseMessage( $vote->id );
 						}
 					} else {
 						$response->setResponseError( 'Cant re-vote or vote for yourself!' );

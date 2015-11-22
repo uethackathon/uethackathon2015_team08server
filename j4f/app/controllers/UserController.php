@@ -26,6 +26,8 @@ class UserController extends \Phalcon\Mvc\Controller {
 			$user->username = $username;
 			$user->email    = $email;
 			$user->password = $password;
+			$i              = rand( 1, 9 );
+			$user->avatar   = "http://188.166.241.34/hackathon/j4f/avatars/$i.png";
 
 			// Store the password hashed
 			$user->password = $this->security->hash( $password );
@@ -33,7 +35,12 @@ class UserController extends \Phalcon\Mvc\Controller {
 				if ( $user->save() == false ) {
 					$response->setResponseError( implode( ', ', $user->getMessages() ) );
 				} else {
-					$response->setResponseMessage( $user->id );
+					$response->setResponse( array(
+						'id'       => $user->id,
+						'username' => $user->username,
+						'email'    => $user->email,
+						'avatar'   => $user->avatar
+					) );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
@@ -67,7 +74,12 @@ class UserController extends \Phalcon\Mvc\Controller {
 				return $response;
 			}
 
-			$response->setResponseMessage( 'Login successfully!' );
+			$response->setResponse( array(
+				'id'       => $user->id,
+				'username' => $user->username,
+				'email'    => $user->email,
+				'avatar'   => $user->avatar
+			) );
 		} else {
 			$response->setResponseError( 'Wrong HTTP Method' );
 		}

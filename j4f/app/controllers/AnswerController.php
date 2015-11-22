@@ -75,7 +75,7 @@ class AnswerController extends \Phalcon\Mvc\Controller {
 				if ( $answer->save() == false ) {
 					$response->setResponseError( $answer->getMessages() );
 				} else {
-					$response->setResponseMessage( "Create answer $answer->id successfully!" );
+					$response->setResponseMessage( $answer->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
