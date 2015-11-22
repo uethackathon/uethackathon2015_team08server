@@ -23,7 +23,25 @@ class AnswerController extends \Phalcon\Mvc\Controller {
 			);
 
 			$page = $paginator->getPaginate();
-			$response->setResponse( $page->items, count( $answers ) );
+//			$response->setResponse( $page->items, count( $answers ) );
+
+			$res = [ ];
+			foreach ( $page->items as $item ) {
+				$user = Users::findFirstById( $item->users_id );
+
+				$res[] = array(
+					'id'           => $item->id,
+					'content'      => $item->content,
+					'photo'        => $item->photo,
+					'questions_id' => $item->questions_id,
+					'users_id'     => $item->users_id,
+					'avatar'       => $user->avatar,
+					'username'     => $user->username,
+					'email'        => $user->email,
+				);
+			}
+
+			$response->setResponse( $res, count( $answers ) );
 
 			return $response;
 
@@ -75,7 +93,7 @@ class AnswerController extends \Phalcon\Mvc\Controller {
 				if ( $answer->save() == false ) {
 					$response->setResponseError( $answer->getMessages() );
 				} else {
-					$response->setResponseMessage( $answer->id );
+					$response->setResponse( $answer->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
