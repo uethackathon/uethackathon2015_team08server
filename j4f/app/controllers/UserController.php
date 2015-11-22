@@ -26,7 +26,8 @@ class UserController extends \Phalcon\Mvc\Controller {
 			$user->username = $username;
 			$user->email    = $email;
 			$user->password = $password;
-//			$user->avatar =
+			$i              = rand( 1, 9 );
+			$user->avatar   = "http://188.166.241.34/hackathon/j4f/avatars/$i.png";
 
 			// Store the password hashed
 			$user->password = $this->security->hash( $password );
