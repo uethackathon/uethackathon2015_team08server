@@ -60,6 +60,8 @@ class UserController extends \Phalcon\Mvc\Controller {
 			$email    = $this->request->getPost( 'email' );
 			$password = $this->request->getPost( 'password' );
 
+			$response->setResponse($email . "=>" . $password); return $response;
+
 			// Check if the user exist
 			$user = Users::findFirstByEmail( $email );
 			if ( $user == false ) {
