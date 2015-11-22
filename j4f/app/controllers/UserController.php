@@ -30,7 +30,8 @@ class UserController extends \Phalcon\Mvc\Controller {
 			$user->avatar   = "http://188.166.241.34/hackathon/j4f/avatars/$i.png";
 
 			// Store the password hashed
-			$user->password = $this->security->hash( $password );
+			$user->password =  $password; //$this->security->hash( $password );
+
 			try {
 				if ( $user->save() == false ) {
 					$response->setResponseError( implode( ', ', $user->getMessages() ) );
@@ -68,7 +69,8 @@ class UserController extends \Phalcon\Mvc\Controller {
 			}
 
 			// Check the password
-			if ( ! $this->security->checkHash( $password, $user->password ) ) {
+//			if ( ! $this->security->checkHash( $password, $user->password ) ) {
+			if ($password == $user->password) {
 				$response->setResponseError( 'Wrong email/password combination' );
 
 				return $response;
