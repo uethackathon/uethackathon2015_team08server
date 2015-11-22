@@ -205,7 +205,7 @@ class OfferController extends \Phalcon\Mvc\Controller {
 		return $response;
 	}
 
-	public function detailtAction() {
+	public function detailAction() {
 		$response = new ApiResponse();
 
 		if ( $this->request->isGet() ) {
