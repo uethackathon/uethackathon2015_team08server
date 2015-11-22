@@ -72,7 +72,7 @@ class TagController extends \Phalcon\Mvc\Controller {
 				if ( $tag->save() == false ) {
 					$response->setResponseError( $tag->getMessages() );
 				} else {
-					$response->setResponseMessage( "Create tag $tag->id successfully!" );
+					$response->setResponseMessage( $tag->id );
 				}
 			} catch ( PDOException $e ) {
 				$response->setResponseError( $e->getMessage() );
